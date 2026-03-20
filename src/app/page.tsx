@@ -15,7 +15,7 @@ export default function Home() {
   const defaultTodos: Todo[] = [
     { id: 1, text: "学习 Next.js", completed: false },
     { id: 2, text: "练习 TypeScript", completed: false },
-    { id: 3, text: "完成 Todo 应用", completed: false },
+    { id: 3, text: "测试自动部署", completed: false },
   ];
 
   // 状态管理 - 初始使用默认数据（服务器端和客户端一致）
