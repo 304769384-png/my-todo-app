@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { ClipboardList } from "lucide-react";
 
 // Todo 类型定义
 interface Todo {
@@ -84,59 +85,56 @@ export default function Home() {
   const incompleteCount = todos.filter(todo => !todo.completed).length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-violet-500/10 via-purple-500/10 to-pink-500/10 py-12 px-4">
       <div className="max-w-2xl mx-auto">
         {/* 标题 */}
-        <h1 className="text-4xl font-bold text-center text-indigo-900 mb-8">
+        <h1 className="text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-pink-600 mb-8">
           我的待办清单
         </h1>
 
         {/* 输入框和按钮 */}
-        <div className="flex gap-3 mb-8">
+        <div className="flex flex-col sm:flex-row gap-3 mb-8">
           <input
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="添加新的待办事项..."
-            className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            placeholder="今天要完成什么任务？"
+            className="flex-1 px-5 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-3 focus:ring-violet-400 focus:border-transparent bg-white/80 backdrop-blur-sm shadow-sm transition-all"
           />
           <button
             onClick={handleAddTodo}
-            className="px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className="px-6 py-3 bg-gradient-to-r from-violet-600 to-pink-600 text-white font-medium rounded-xl hover:from-violet-700 hover:to-pink-700 transition-all duration-300 focus:outline-none focus:ring-3 focus:ring-violet-400 focus:ring-offset-2 shadow-md hover:shadow-lg transform hover:-translate-y-1"
           >
             添加
           </button>
         </div>
 
         {/* 待办列表 */}
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-          <ul className="divide-y divide-gray-200">
+        <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl overflow-hidden">
+          <ul className="divide-y divide-gray-100">
             {todos.map((todo) => (
               <li
                 key={todo.id}
-                className="px-6 py-4 hover:bg-gray-50 transition-colors"
+                className="px-6 py-4 hover:bg-gray-50/50 transition-all duration-300"
               >
                 <div className="flex items-center justify-between">
-                  <div 
-                    className="flex items-center gap-3 cursor-pointer" 
-                    onClick={() => handleToggleComplete(todo.id)}
-                  >
+                  <div className="flex items-center gap-3">
                     <input
                       type="checkbox"
                       checked={todo.completed}
                       onChange={() => handleToggleComplete(todo.id)}
-                      className="w-5 h-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                      className="w-5 h-5 text-violet-600 border-gray-300 rounded focus:ring-violet-400 transition-all cursor-pointer"
                     />
                     <span 
-                      className={`text-gray-700 transition-colors ${todo.completed ? 'line-through text-gray-400' : ''}`}
+                      className={`text-gray-700 transition-all duration-300 ${todo.completed ? 'line-through text-gray-400' : ''}`}
                     >
                       {todo.text}
                     </span>
                   </div>
                   <button
                     onClick={() => handleDeleteTodo(todo.id)}
-                    className="text-gray-400 hover:text-red-500 transition-colors p-1 rounded-full hover:bg-red-50"
+                    className="text-gray-400 hover:text-red-500 transition-all duration-300 p-1 rounded-full hover:bg-red-50/50"
                     aria-label="删除"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -149,8 +147,12 @@ export default function Home() {
           </ul>
           
           {todos.length === 0 && (
-            <div className="px-6 py-12 text-center text-gray-500">
-              暂无待办事项，添加一个开始吧！
+            <div className="px-6 py-16 text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-violet-100">
+                <ClipboardList className="h-8 w-8 text-violet-600" />
+              </div>
+              <p className="text-gray-500 mb-2">还没有待办事项</p>
+              <p className="text-gray-400 text-sm">添加一个开始你的任务吧！</p>
             </div>
           )}
         </div>
